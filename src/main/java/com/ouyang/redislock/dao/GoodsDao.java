@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface GoodsDao extends BaseMapper<Goods>{
 
-    @Update(" update goods set goods_num - 1 where id = #{goodsId} ")
+    @Update(" update goods set goods_num = goods_num - 1 where id = #{goodsId} ")
     void kill(@Param("goodsId") Long goodsId);
 
 }
