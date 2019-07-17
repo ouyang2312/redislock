@@ -39,4 +39,9 @@ public class LockController {
         goodsService.kill(goodsId);
     }
 
+    @GetMapping("/kill2/{goodsId}")
+    public void kill2(@PathVariable("goodsId") Long goodsId)throws Exception{
+        goodsService.kill2(goodsId);
+    }
+
 }
