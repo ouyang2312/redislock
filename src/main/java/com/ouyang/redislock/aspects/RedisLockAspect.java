@@ -1,22 +1,24 @@
 package com.ouyang.redislock.aspects;
 
 import com.ouyang.redislock.annotation.RedisLock;
+import com.ouyang.redislock.entity.ResponseBody;
 import com.ouyang.redislock.service.RedisLockService;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.reflect.SourceLocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
+import java.util.Random;
 
 /**
  * @author oy
@@ -33,12 +35,50 @@ public class RedisLockAspect {
     RedisLockService redisLockService;
 
     @Pointcut("@annotation(com.ouyang.redislock.annotation.RedisLock)")
-    public void annotationPointCut(JoinPoint joinPoint) {
+    public void annotationPointCut() {
     }
 
-    @Before("@annotation(com.ouyang.redislock.annotation.RedisLock)")
+
+//    @Around("annotationPointCut()")
+//    private Object around(JoinPoint joinPoint) throws Throwable {
+//        ProceedingJoinPoint tempJoinPoint = (ProceedingJoinPoint) joinPoint;
+//        //方法
+//        MethodSignature sign = (MethodSignature) joinPoint.getSignature();
+//        Method method = sign.getMethod();
+//
+//        //参数具体值
+//        Object[] args = joinPoint.getArgs();
+//
+//        RedisLock annotation = method.getAnnotation(RedisLock.class);
+//        String value = annotation.value();
+//
+//        //拿到的值 parseKey(value, method, args);
+//        String goodsId = parseKey(value, method, args);
+//
+//        //拿到了商品id 去锁住当前的商品
+//        long timeOut = System.currentTimeMillis() + TIMEOUT;
+//
+//        //锁住
+//        boolean lock = redisLockService.lock(String.valueOf(goodsId), String.valueOf(timeOut));
+//
+//        if(lock){
+//            tempJoinPoint.proceed();
+//            //解锁
+//            redisLockService.unlock(String.valueOf(goodsId), String.valueOf(timeOut));
+//            System.out.println("111");
+//            return new ResponseBody(HttpStatus.OK.value(),"抢到了");
+//        }else{
+//            while(!lock){
+//                Thread.sleep(new Random().nextInt(50));
+//                lock = redisLockService.lock(String.valueOf(goodsId), String.valueOf(timeOut));
+//            }
+//            System.out.println("222");
+//            return new ResponseBody(HttpStatus.GONE.value(),"太火爆了！");
+//        }
+//    }
+
+    @Before("annotationPointCut()")
     public void before(JoinPoint joinPoint) throws Exception {
-        System.out.println("进来了!");
         //方法
         MethodSignature sign = (MethodSignature) joinPoint.getSignature();
         Method method = sign.getMethod();
@@ -73,7 +113,7 @@ public class RedisLockAspect {
         }
     }
 
-    @After("@annotation(com.ouyang.redislock.annotation.RedisLock)")
+    @After("annotationPointCut()")
     public void after(JoinPoint joinPoint){
         //方法
         MethodSignature sign = (MethodSignature) joinPoint.getSignature();
