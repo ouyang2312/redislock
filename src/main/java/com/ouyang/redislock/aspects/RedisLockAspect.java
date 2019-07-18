@@ -55,17 +55,16 @@ public class RedisLockAspect {
         //拿到了商品id 去锁住当前的商品
         long timeOut = System.currentTimeMillis() + TIMEOUT;
 
-        throw new MyException(999,"活动太火爆了，请重试一下",null);
         //锁住
-//        boolean lock = redisLockService.lock(String.valueOf(goodsId), String.valueOf(timeOut));
-//        if(lock){
-//            tempJoinPoint.proceed();
-//            //解锁
-//            redisLockService.unlock(String.valueOf(goodsId), String.valueOf(timeOut));
-//        }else{
-//            throw new MyException(999,"活动太火爆了，请重试一下",null);
-//        }
-//        return null;
+        boolean lock = redisLockService.lock(String.valueOf(goodsId), String.valueOf(timeOut));
+        if(lock){
+            tempJoinPoint.proceed();
+            //解锁
+            redisLockService.unlock(String.valueOf(goodsId), String.valueOf(timeOut));
+            return null;
+        }else{
+            throw new MyException(999,"活动太火爆了，请重试一下",null);
+        }
     }
 
 //    @Before("annotationPointCut()")
