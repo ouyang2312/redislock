@@ -1,6 +1,7 @@
 package com.ouyang.redislock.controller;
 
 import com.ouyang.redislock.entity.Goods;
+import com.ouyang.redislock.exception.MyException;
 import com.ouyang.redislock.service.GoodsService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class LockController {
     }
 
     @GetMapping("/kill2/{goodsId}")
-    public void kill2(@PathVariable("goodsId") Long goodsId)throws Exception{
+    public void kill2(@PathVariable("goodsId") Long goodsId)throws MyException {
         goodsService.kill2(goodsId);
     }
 

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @author oy
  * @description 返回消息体
@@ -14,7 +16,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ResponseBody {
+public class ResponseBody implements Serializable {
 
     private int code;
     private String msg;

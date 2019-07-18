@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ouyang.redislock.annotation.RedisLock;
 import com.ouyang.redislock.dao.GoodsDao;
 import com.ouyang.redislock.entity.Goods;
+import com.ouyang.redislock.exception.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,8 +50,9 @@ public class GoodsService extends ServiceImpl<GoodsDao, Goods> {
 
 
     @RedisLock(value = "#goodsId" )
-    public void kill2(Long goodsId) throws Exception{
+    public void kill2(Long goodsId) throws MyException {
         //请求获取当前的商品数量 判断
+        System.out.println("测试服务进来");
         Goods goods = baseMapper.selectById(goodsId);
         if(goods != null){
             Integer goodsNum = goods.getGoodsNum();
