@@ -52,7 +52,6 @@ public class GoodsService extends ServiceImpl<GoodsDao, Goods> {
     @RedisLock(value = "#goodsId" )
     public void kill2(Long goodsId) throws MyException {
         //请求获取当前的商品数量 判断
-        System.out.println("测试服务进来");
         Goods goods = baseMapper.selectById(goodsId);
         if(goods != null){
             Integer goodsNum = goods.getGoodsNum();
