@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @author oy
  * @description
@@ -17,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @TableName("Goods")
-public class Goods {
+public class Goods implements Serializable {
 
     @TableId(value = "id",type = IdType.AUTO)
     private String id;

@@ -14,6 +14,13 @@ spring:
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/dubbo?allowMultiQueries=true&autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+  rabbitmq:
+    host: 119.23.187.31
+    port: 5672
+    username: admin
+    password: 123456
+    virtual-host: /
+    publisher-confirms: true
 
 server:
   port: 8888
@@ -21,3 +28,4 @@ server:
     context-path: /oy
   tomcat:
     max-connections: 10000
+

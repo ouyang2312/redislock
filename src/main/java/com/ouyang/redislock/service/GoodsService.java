@@ -21,17 +21,20 @@ public class GoodsService extends ServiceImpl<GoodsDao, Goods> {
 
     private static final int TIMEOUT = 10 * 1000;//10s
 
+    /**
+     * 逻辑
+     * @author oy
+     * @date 2019/7/18
+     * @param goodsId
+     * @return void
+     */
     public void kill(Long goodsId) throws Exception{
         long timeOut = System.currentTimeMillis() + TIMEOUT;
         //锁住
         boolean lock = redisLockService.lock(String.valueOf(goodsId), String.valueOf(timeOut));
         //一会儿加 while 线程sleep试试
-        while(!lock){
-            Thread.sleep(50);
-            boolean lock1 = redisLockService.lock(String.valueOf(goodsId), String.valueOf(timeOut));
-            if(lock1){
-                break;
-            }
+        if(!lock){
+           throw new MyException(9999,"太忙了",null);
         }
         //请求获取当前的商品数量 判断
         Goods goods = baseMapper.selectById(goodsId);
@@ -44,11 +47,18 @@ public class GoodsService extends ServiceImpl<GoodsDao, Goods> {
                 System.out.println("库存不足！");
             }
         }
-//        //解锁
+        //解锁
         redisLockService.unlock(String.valueOf(goodsId), String.valueOf(timeOut));
     }
 
 
+    /**
+     * 注解
+     * @author oy
+     * @date 2019/7/18
+     * @param goodsId
+     * @return void
+     */
     @RedisLock(value = "#goodsId" )
     public void kill2(Long goodsId) throws MyException {
         //请求获取当前的商品数量 判断
@@ -63,6 +73,5 @@ public class GoodsService extends ServiceImpl<GoodsDao, Goods> {
             }
         }
     }
-
 
 }
