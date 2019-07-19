@@ -24,4 +24,8 @@ public class MqService {
         messageSender.sendByGoodsByRounter(goods);
     }
 
+    public void sendByGoodsByRounter(String key){
+        messageSender.send(key);
+    }
+
 }

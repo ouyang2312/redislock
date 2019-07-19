@@ -3,10 +3,7 @@ package com.ouyang.redislock.controller;
 import com.ouyang.redislock.entity.Goods;
 import com.ouyang.redislock.service.MqService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author oy
@@ -29,6 +26,12 @@ public class MqController {
     @PostMapping("/send2")
     public String sendByGoodsByRounter(@RequestBody Goods goods){
         mqService.sendByGoodsByRounter(goods);
+        return "发送成功！";
+    }
+
+    @GetMapping("/send3")
+    public String sendString(@RequestParam("key")String key){
+        mqService.sendByGoodsByRounter(key);
         return "发送成功！";
     }
 }

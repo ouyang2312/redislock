@@ -16,9 +16,8 @@ public class MessageSender {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    public void send(){
-        String hello = "helloWorld";
-        amqpTemplate.convertAndSend("ouyang",hello);
+    public void send(String key){
+        amqpTemplate.convertAndSend("ouyang",key);
     }
 
     /**
