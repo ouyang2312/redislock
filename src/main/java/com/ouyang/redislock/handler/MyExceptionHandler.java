@@ -19,7 +19,8 @@ public class MyExceptionHandler {
     @org.springframework.web.bind.annotation.ResponseBody
     @ExceptionHandler({MyException.class})
     public ResponseBody handleArithmeticException(Exception ex, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ResponseBody responseBody = new ResponseBody(9999, "活动太火爆了，请重新尝试！");
+        String message = ex.getMessage();
+        ResponseBody responseBody = new ResponseBody(9999, message);
         return responseBody;
     }
 }
