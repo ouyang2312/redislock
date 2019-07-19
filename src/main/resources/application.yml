@@ -1,6 +1,6 @@
 spring:
   application:
-    name: test-jedis
+    name: redis-lock
   redis:
     database: 0
     host: localhost
