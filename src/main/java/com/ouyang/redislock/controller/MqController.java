@@ -26,4 +26,9 @@ public class MqController {
         return "发送成功！";
     }
 
+    @PostMapping("/send2")
+    public String sendByGoodsByRounter(@RequestBody Goods goods){
+        mqService.sendByGoodsByRounter(goods);
+        return "发送成功！";
+    }
 }
