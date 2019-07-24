@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author oy
- * @description
+ * @description rabbit配置
  * @date 2019/7/18
  */
 @Configuration

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/7/16
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/lock")
 public class LockController {
 
     @Autowired

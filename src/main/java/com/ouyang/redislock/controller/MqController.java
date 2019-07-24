@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author oy
- * @description
+ * @description mq的控制器
  * @date 2019/7/18
  */
 @RestController
