@@ -5,6 +5,7 @@ import com.ouyang.redislock.annotation.RedisLock;
 import com.ouyang.redislock.dao.GoodsDao;
 import com.ouyang.redislock.entity.Goods;
 import com.ouyang.redislock.exception.MyException;
+import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +73,14 @@ public class GoodsService extends ServiceImpl<GoodsDao, Goods> {
                 System.out.println("库存不足！");
             }
         }
+    }
+
+    public void insertEntity(){
+        Goods goods = new Goods();
+        goods.setGoodsName("测试websocket")
+                .setGoodsNum(999);
+        save(goods);
+        System.out.println("保存成功");
     }
 
 }
