@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
