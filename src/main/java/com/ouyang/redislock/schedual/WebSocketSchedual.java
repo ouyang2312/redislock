@@ -27,16 +27,16 @@ public class WebSocketSchedual {
      * @param
      * @return void
      */
-    @Scheduled(cron = "0/1 * * * * *")
-    public void sendMsg(){
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String format = simpleDateFormat.format(date);
-        try {
-            webSocketServer.sendMessage(format);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Scheduled(cron = "0/1 * * * * *")
+//    public void sendMsg(){
+//        Date date = new Date();
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String format = simpleDateFormat.format(date);
+//        try {
+//            webSocketServer.sendMessage(format);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

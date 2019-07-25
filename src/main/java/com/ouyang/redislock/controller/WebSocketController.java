@@ -20,9 +20,9 @@ public class WebSocketController {
     WebSocketServer webSocketServer;
 
     @GetMapping(value = "/sendMsg")
-    public void sendMsg(@RequestParam("msg")String msg) throws Exception{
+    public void sendMsg(@RequestParam("msg")String msg,@RequestParam("id")String id) throws Exception{
         System.out.println("要发送的消息："+msg);
-        webSocketServer.sendMessage(msg);
+        webSocketServer.sendMessageByUser(id,msg);
     }
 
 }
