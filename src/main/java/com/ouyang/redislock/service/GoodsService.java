@@ -2,12 +2,14 @@ package com.ouyang.redislock.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ouyang.redislock.annotation.RedisLock;
+import com.ouyang.redislock.cache.GoodsCache;
 import com.ouyang.redislock.dao.GoodsDao;
 import com.ouyang.redislock.entity.Goods;
 import com.ouyang.redislock.exception.MyException;
-import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author oy
@@ -19,6 +21,9 @@ public class GoodsService extends ServiceImpl<GoodsDao, Goods> {
 
     @Autowired
     RedisLockService redisLockService;
+
+    @Autowired
+    GoodsCache goodsCache;
 
     private static final int TIMEOUT = 10 * 1000;//10s
 
@@ -84,6 +89,25 @@ public class GoodsService extends ServiceImpl<GoodsDao, Goods> {
     }
 
 
+    public void getGoodsByCache(int id) {
+        Goods goods = new Goods();
+        goods.setId(10020+"");
+        Goods goodsById = goodsCache.getGoodsById(id,goods);
+        System.out.println(goodsById);
+    }
 
+    public void getGoodsListByCache(List<Integer> list) {
+        List<Goods> goods = goodsCache.getGoodsListByCache(list);
+        goods.forEach(item->{
+            System.out.println(item);
+        });
+    }
 
+    public void deleteGoodsCache() {
+        goodsCache.deleteGoodsCache();
+    }
+
+    public void deleteGoodsCacheAll() {
+        goodsCache.deleteGoodsCacheAll();
+    }
 }

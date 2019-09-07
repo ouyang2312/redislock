@@ -3,7 +3,7 @@ spring:
     name: redis-lock
   redis:
     database: 0
-    host: localhost
+    host: 127.0.0.1
     port: 6379
     password:
     jedis:
@@ -22,6 +22,7 @@ spring:
     virtual-host: /
     publisher-confirms: true
 
+
 server:
   port: 8889
   servlet:
@@ -29,3 +30,6 @@ server:
   tomcat:
     max-connections: 10000
 
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
